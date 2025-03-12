@@ -32,6 +32,9 @@ class Status:
     NOT_IMPLEMENTED = 501
     SERVICE_UNAVAILABLE = 503
 
+'''
+==== FUNCTIONS ====
+'''
 
 def log(type: str, message: str, *dump):
     print("[{0}] {1}: {2}{3}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), type, message, f"\n{dump}" if dump else ""))
@@ -101,6 +104,8 @@ def test():
     ]
     log(LogType.INFO, "Saving to 'test2.csv'...", test2)
     log(LogType.INFO, "Successfully saved! :)" if not save_csv(test2, "test2") else "Failed to save! :(")
+
+
 
 if __name__ == "__main__":
     test()

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CsvLoader</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<nav>
+    <ul>
+        <li>Home</li>
+        <li>Link 1</li>
+        <li>Link 2</li>
+    </ul>
+</nav>
+<div id="wrap">
+    <main>
+        <div id="content-left">
+            {% block content_left %}{% endblock %}
+        </div>
+        <div id="content-right">
+            {% block content_right %}{% endblock %}
+        </div>
+    </main>
+</div>
+<footer>
+    Created by cr0wlet.
+</footer>
+</body>
+</html>
