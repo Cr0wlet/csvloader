@@ -12,18 +12,7 @@ app = Flask(__name__)
 @app.route("/", methods=["POST", "GET"])
 def home():
     filename = request.args.get("filename", "default", type=str)
-    value_list = [ # a temporary test list
-        {
-            "a": "abc",
-            "b": "def",
-            "c": "ghi"
-        },
-        {
-            "a": "123",
-            "b": "456",
-            "c": "789"
-        }
-    ]
+    value_list = load_csv(filename)
     input_list = list(value_list[0].keys())
     return render_template("entry.html", filename=filename, input_list=input_list, value_list=value_list)
 
