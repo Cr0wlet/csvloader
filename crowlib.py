@@ -57,7 +57,7 @@ def make_entity(headers: list, values: list) -> dict:
         entity[x] = values[headers.index(x)]
     return entity
 
-def load_csv(filename: str) -> list:
+def load_csv(filename: str) -> list[dict]:
     '''Loads a csv file'''
     outpath = Path(f"{os.getenv("CSVLOADER_FILE_PATH")}/{filename}.csv")
     outpath.parent.mkdir(exist_ok=True) # make sure the directory the files are in exists
