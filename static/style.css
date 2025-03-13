@@ -8,6 +8,13 @@ body, html {
 
 * {
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+a:link, a:visited {
+    color: white;
+    text-decoration: none;
 }
 
 #wrap {
@@ -27,7 +34,10 @@ nav, ul {
 
 nav {
     background-color: darkred;
+    font-family: monospace;
+    font-size: 1.25em;
     color: white;
+    text-shadow: 1px 1px 1px black;
     position: sticky;
     top: 0;
     left: 0;
@@ -36,7 +46,32 @@ nav {
 
 nav ul li {
     display: inline-block;
+    padding: 0.1em 1.5em;
+    margin: 0.35em;
+}
+
+nav ul li:not(:last-of-type) {
+    border-right: 1px solid white;
+}
+
+nav input[type="text"] {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+    color: white;
+    font-family: monospace;
+    text-shadow: 1px 1px 1px black;
+    font-size: 1em;
+}
+
+nav input[type="button"] {
+    background-color: white;
+    box-shadow: 1px 1px 1px black;
+    border: 0;
+    border-radius: 7px 7px;
+    color: black;
     padding: 0.5em 1em;
+    margin-left: 1em;
 }
 
 main {
@@ -64,6 +99,8 @@ footer {
     background-color: darkred;
     box-sizing: border-box;
     color: white;
+    font-family: monospace;
+    font-size: 1.25em;
     position: sticky;
     bottom: 0;
     left: 0;
@@ -78,7 +115,33 @@ table.form td[colspan="2"] {
     text-align: center;
 }
 
-table.form input[type="submit"] {
-    width: 80%;
-    height: 2em;
+table.form input[type="submit"], table.form input[type="button"] {
+    padding: 0.15em 0.45em;
+}
+
+#content-right table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#content-right table tr:has(th) {
+    background-color: darkred;
+    border-bottom: 2px solid black;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+
+th, td {
+    padding: 0.15em 1.5em 0.15em 0.25em;
+    text-align: left;
+}
+
+#content-right tr:has(td) {
+    border-bottom: 1px solid grey;
+}
+
+p.error {
+    background-color: lightcoral;
+    color: black;
+    border-top: 2px solid red;
 }

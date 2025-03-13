@@ -1,31 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content_left %}
-<h2>Entry Form</h2>
-<form method="post" action="/add">
-    <table class="form">
-        <tr>
-            <th><label for="filename">filename</label></th>
-            <td><input name="filename" id="filename" value="{{filename}}"></td>
-        </tr>
-        {% for input in input_list %}
-        <tr>
-            <th><label for="{{input}}">{{input}}</label></th>
-            <td><input name="{{input}}" id="{{input}}"></td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Submit">
-            </td>
-        </tr>
-    </table>
-</form>
+    <h2>Entry Form</h2>
+    <form method="post" action="/add">
+        <table class="form">
+            <tr>
+                <th><label for="filename">filename</label></th>
+                <td>
+                    <input value="{{filename}}" disabled>
+                    <input name="filename" id="filename" type="hidden" value="{{filename}}">
+                </td>
+            </tr>
+            {% for input in input_list %}
+            <tr>
+                <th><label for="{{input}}">{{input}}</label></th>
+                <td><input name="{{input}}" id="{{input}}"></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}
 
 {% block content_right %}
-<h2>Data</h2>
-{% for entry in value_list %}
-<div>{{entry}}</div>
-{% endfor %}
+    <h2>Data</h2>
+    {% if value_list|length > 0: %}
+        <table>
+            <tr>
+                {% for key in value_list[0].keys() %}
+                    <th>{{key}}</th>
+                {% endfor %}
+            </tr>
+            {% for entry in value_list %}
+                <tr>
+                    {% for key, value in entry.items() %}
+                        <td>{{value}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}
+
+{% block scripts %}{% endblock %}

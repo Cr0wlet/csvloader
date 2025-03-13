@@ -3,6 +3,7 @@ import os
 import csv
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
+from markupsafe import escape
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -40,8 +41,9 @@ def log(type: str, message: str, *dump):
     print("[{0}] {1}: {2}{3}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), type, message, f"\n{dump}" if dump else ""))
 
 def tidy_text(value: str) -> str:
-    '''Removes extra whitespace in and around text'''
+    '''Removes extra whitespace in and around text, escapes html'''
     out = value.strip()
+    out = str(escape(out))
     return out
 
 def tidy_list(lst: list) -> list[str]:
@@ -51,16 +53,38 @@ def tidy_list(lst: list) -> list[str]:
         out[out.index(x)] = tidy_text(x)
     return out
 
+def tidy_filename(val: str):
+    '''Escapes html and removes invalid characters from filename'''
+    out = str(escape(val))
+    out = out.replace("/","_")
+    out = out.replace("\\","_")
+    out = out.replace("|","_")
+    out = out.replace("?","_")
+    out = out.replace("*","_")
+    out = out.replace(":","_")
+    out = out.removesuffix(".")
+    return out
+
 def make_entity(headers: list, values: list) -> dict:
     entity = {}
     for x in headers:
         entity[x] = values[headers.index(x)]
     return entity
 
-def load_csv(filename: str) -> list[dict]:
-    '''Loads a csv file'''
+def check_csv_exists(filename:str) -> bool:
+    '''Checks that the path/file exists'''
+    filename = tidy_filename(filename)
     outpath = Path(f"{os.getenv("CSVLOADER_FILE_PATH")}/{filename}.csv")
     outpath.parent.mkdir(exist_ok=True) # make sure the directory the files are in exists
+    return outpath.exists()
+
+def load_csv(filename: str) -> list[dict]:
+    '''Loads a csv file'''
+    filename = tidy_filename(filename)
+    outpath = Path(f"{os.getenv("CSVLOADER_FILE_PATH")}/{filename}.csv")
+    outpath.parent.mkdir(exist_ok=True) # make sure the directory the files are in exists
+    if not outpath.exists():
+        return []
     csvlist = [] # our final product, a list of entities from our csv file
     headers = [] # the columns' headings
     try:
@@ -80,6 +104,7 @@ def load_csv(filename: str) -> list[dict]:
 
 def save_csv(all_entries: list[dict], out_file: str) -> int:
     '''Accepts a list of all "current" entries (old and new) and saves it as a csv file (`out_file`).'''
+    out_file = tidy_filename(out_file)
     outpath = Path(f"{os.getenv("CSVLOADER_FILE_PATH")}/{out_file}.csv")
     outpath.parent.mkdir(exist_ok=True)
     try:

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content_left %}
+    <h2>Entry Form</h2>
+    {% if message is defined: %}
+        <p class="error">
+            {{message}}
+        </p>
+    {% endif %}
+    <form method="post" action="/">
+        <table id="create_table_form" class="form">
+            <tr>
+                <th><label for="filename">filename</label></th>
+                <td><input name="filename" id="filename" value="{{filename}}"></td>
+            </tr>
+            <tr>
+                <th><label for="col-1">Column 1</label></th>
+                <td><input name="col-1" id="col-1" required placeholder="Name of column"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="create_table_add_column" type="button" value="+">
+                    <input id="create_table_remove_column" type="button" value="-">
+                </td>
+                <td>
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
+
+{% block content_right %}
+    <h2>Table Headers</h2>
+    <table>
+        <tr><th>Column Name</tr></tr>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/crowfiddle.js"></script>
+{% endblock %}

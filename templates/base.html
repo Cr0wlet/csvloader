@@ -7,9 +7,10 @@
 <body>
 <nav>
     <ul>
-        <li>Home</li>
-        <li>Link 1</li>
-        <li>Link 2</li>
+        <li><a href="/">Load Default</a></li>
+        <li><a href="/?filename=test">Load Test</a></li>
+        <li><input id="load_value" type="text" placeholder="Load...?"><input id="load_button" type="button" value="Go"></li>
+        <li><a href="/new">+ Create</a></li>
     </ul>
 </nav>
 <div id="wrap">
@@ -25,5 +26,7 @@
 <footer>
     Created by cr0wlet.
 </footer>
+{% block scripts %}{% endblock %}
+<script src="/static/crowfiddle2.js"></script>
 </body>
 </html>
